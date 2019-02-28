@@ -1,0 +1,45 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" [routerLink]="['/home']">Dating App</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse" >
+      <ul class="nav navbar-nav" *ngIf="loggedIn()">
+        <li routerLinkActive="active"><a [routerLink]="['/members']">Matches</a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/lists']">Lists</a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/messages']">Message</a></li>
+      </ul>
+      <form *ngIf="!loggedIn()" #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="navbar-form navbar-right">
+        <div class="form-group">
+          <input type="text" #username="ngModel" placeholder="Email" class="form-control" required  name="username" [(ngModel)]="model.username" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+        </div>
+        <div class="form-group">
+          <input type="password" #password= "ngModel" placeholder="Password" class="form-control" required name="password"  [(ngModel)]="model.password" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">Sign in</button>
+      </form>
+
+      <ul *ngIf="loggedIn()" class="nav navbar-nav navbar-right">
+        <li>
+          <img src="{{photoUrl}}" alt="">
+        </li>
+          <li class="dropdown" dropdown>
+            <a (click)="false" class="dropdown-toggle" dropdownToggle>Welcome {{authService.decodedToken?.unique_name | titlecase}} <span class="caret"></span></a>
+            <ul class="dropdown-menu" *dropdownMenu>
+              <li><a [routerLink]="['/member/edit']" routerLinkActive="router-link-active" ><li class="fa fa-user"></li> Edit Profile</a></li>
+              <!-- <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li> -->
+              <li role="separator" class="divider"></li>
+              <li><a (click)="logout()"> <li class="fa fa-sign-out"></li>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</nav>
